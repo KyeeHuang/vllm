@@ -56,6 +56,7 @@ class DistributedGPUExecutor(GPUExecutor):
         logger.info("# GPU blocks: %d, # CPU blocks: %d", num_gpu_blocks,
                     num_cpu_blocks)
 
+        # 每个 TransformerBlock 的 Size，固定大小
         self.cache_config.num_gpu_blocks = num_gpu_blocks
         self.cache_config.num_cpu_blocks = num_cpu_blocks
 

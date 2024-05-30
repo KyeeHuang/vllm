@@ -698,6 +698,7 @@ class Scheduler:
                     waiting_queue.popleft()
                     continue
 
+            # waiting seq -> running
             num_new_seqs = seq_group.get_max_num_running_seqs()
             if (num_new_tokens == 0
                     or not budget.can_schedule(num_new_tokens=num_new_tokens,

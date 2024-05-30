@@ -140,7 +140,7 @@ class LLM:
             max_seq_len_to_capture=max_seq_len_to_capture,
             disable_custom_all_reduce=disable_custom_all_reduce,
             **kwargs,
-        )
+        ) # 根据参数生成 llm_engine, 包含 model 和 tokenizer、cache 和并行参数等
         self.llm_engine = LLMEngine.from_engine_args(
             engine_args, usage_context=UsageContext.LLM_CLASS)
         self.request_counter = Counter()
@@ -539,10 +539,10 @@ class LLM:
         outputs: List[Union[RequestOutput, EmbeddingRequestOutput]] = []
         total_toks = 0
         while self.llm_engine.has_unfinished_requests():
-            step_outputs = self.llm_engine.step()
+            step_outputs = self.llm_engine.step() # 每次生成一个 token
             for output in step_outputs:
                 if output.finished:
-                    outputs.append(output)
+                    outputs.append(output) # 添加到输出中
                     if use_tqdm:
                         if isinstance(output, RequestOutput):
                             # Calculate tokens only for RequestOutput
